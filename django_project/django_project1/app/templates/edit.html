@@ -1,0 +1,76 @@
+  {% extends 'home.html'%}
+  {% block content %}
+    <h1 class="mt-4">Admin panel</h1>
+
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+  Add new article
+</button>
+
+	{% if succes %}
+		<p style="color: green">Article was successfully added</p>
+	{% endif %}
+	{% if update %}
+
+	{% if succes_update %}
+		<p style="color: green">Article was successfully updated</p>
+	{% endif %}
+		<p class="mt-4">Update page</p>
+		<p><a href="{%url 'edit_page'%}">Return</a></p>
+		<form id="update_data" method="post">
+			{% csrf_token %}
+        	{{form}}
+        	
+        </form>
+        <button form="update_data" type="submit" class="btn btn-primary">Update</button>
+	{% else %}
+
+    <table class="table table-bordered">
+  <thead>
+    <tr>
+      <th scope="col">id</th>
+      <th scope="col">Create date</th>
+      <th scope="col">Name</th>
+      <th scope="col">Edit</th>
+      <th scope="col">Delete</th>
+    </tr>
+  </thead>
+  <tbody>
+  	{% for i in list_articles %}
+    <tr>
+      <th>{{i.id}}</th>
+      <td>{{i.create_date}}</td>
+      <td>{{i.name}}</td>
+      <td><a href="{% url 'update_page' i.id %}">edit</a></td>
+      <td><a href="{% url 'delete_page' i.id %}">delete</a></td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+	{% endif %}
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="add_form" method="post">
+			{% csrf_token %}
+        	{{form}}
+        	
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button form="add_form" type="submit" class="btn btn-primary">Add</button>
+      </div>
+    </div>
+  </div>
+</div>
+    {% endblock %}
+

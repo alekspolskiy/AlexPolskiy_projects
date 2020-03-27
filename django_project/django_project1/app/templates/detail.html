@@ -1,0 +1,9 @@
+  {% extends 'home.html'%}
+  {% block content %}
+    <h1 class="mt-4">Article: {{ get_article.name }}</h1>
+    <p><a href="/">Return</a></p>
+    <p>Date: {{ get_article.create_date }}</p>
+	<p>Name: {{ get_article.name }}</p>
+    <p>Text: {{ get_article.text }}</p>
+    {% endblock %}
+
